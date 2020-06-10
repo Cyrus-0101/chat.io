@@ -1,0 +1,17 @@
+{
+  "name": "socket.io",
+  "version": "1.0.0",
+  "description": "Real Time Chat Application",
+  "main": "app.js\\",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "author": "Cyrus Gichuki",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.18",
+    "socket.io": "2.3.0"
+  }
+}
