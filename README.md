@@ -6,4 +6,4 @@ This is a sample chat made with JavaScript and Node JS
 
 - Navigate the application to the terminal and run an `npm install` to install our app dependencies.
 
-- Run the application by typing `npm start` in the terminal.
+- Run the application by typing `npm run dev` in the terminal.
