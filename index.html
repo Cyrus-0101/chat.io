@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinkedIn Learning</title>
+    <title>CS Club Challenge</title>
     <!-- CSS only -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -24,7 +24,7 @@
     <div class="container">
         <br>
         <div class="jumbotron">
-            <h1 class="display-4">Send Message</h1>
+            <h1 class="display-4">SPU Messenger</h1>
             <br>
             <input id="name" type="text" class="form-control" placeholder="Name" autocomplete="off" required>
             <br>
@@ -49,7 +49,8 @@
         socket.on('message', addMessage);
     
         function addMessage(message){
-            $("#messages").append(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
+            // https://www.javatpoint.com/jquery-prepend#:~:text=%E2%86%92%20%E2%86%90%20prev-,jQuery%20prepend(),the%20jQuery%20append()%20method.
+            $("#messages").prepend(`<h4> ${message.name} </h4> <p> ${message.message} </p>`)
         };
     
         function getMessages() {
