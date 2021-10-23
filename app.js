@@ -1,21 +1,29 @@
+var dotenv = require('dotenv').config(
+
+);
+
+
 var express = require('express');
-var bodyparser = require('body-parser');
+
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
 
+// App Middleware.
 app.use(express.static(__dirname));
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-const uri = 'mongodb+srv://cyrus:Y1B97SO21fuMmiI7@cluster0-xp4l4.mongodb.net/chat-socket?retryWrites=true&w=majority';
+const uri = process.env.MONGODB_URI;
 
+// Message Model.
 var Message = mongoose.model('Message', {
     name: String,
     message: String
 });
 
+// App Routes
 app.get('/messages', (req, res) => {
     Message.find({}, (err, messages) =>{
         res.send(messages)
@@ -34,14 +42,29 @@ app.post('/messages', (req, res) => {
     })
 });
 
+// Setting up socket.io connection.
 io.on('connection', (socket) => {
     console.log('A User Connected!');
 });
 
-mongoose.connect(uri,  (err) => {
-    console.log('DB Connected.', err);
+// Connecting to MongoDB.
+
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 });
 
-var server = http.listen(3000, () => {
+// Getting default connection.
+var db = mongoose.connection;
+
+// Binding the mongoose connection to an error event.
+// Better error handling.
+// https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose
+db.on(
+    'error',
+    console.error.bind(console, 'MongoDB connection error:')
+);
+
+var server = http.listen(process.env.PORT, () => {
     console.log('App listening on port', server.address().port);
 });
